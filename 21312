@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kruci-Nolici</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="board"></div>
+
+<script>
+    // Variabili globali
+    let currentPlayer = 'X';
+    let board = ['', '', '', '', '', '', '', '', ''];
+    const boardElement = document.getElementById('board');
+
+    // Funzione per gestire il clic su una cella
+    function cellClick(index) {
+        if (board[index] === '' && !checkWinner()) {
+            board[index] = currentPlayer;
+            renderBoard();
+            switchPlayer();
+            checkWinner();
+        }
+    }
+
+    // Funzione per controllare se c'è un vincitore
+    function checkWinner() {
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Righe
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colonne
+            [0, 4, 8], [2, 4, 6]             // Diagonali
+        ];
+
+        for (const pattern of winPatterns) {
+            const [a, b, c] = pattern;
+            if (board[a] !== '' && board[a] === board[b] && board[a] === board[c]) {
+                alert(`Il giocatore ${currentPlayer} ha vinto!`);
+                resetGame();
+                return true;
+            }
+        }
+
+        if (board.every(cell => cell !== '')) {
+            alert('È un pareggio!');
+            resetGame();
+            return true;
+        }
+
+        return false;
+    }
+
+    // Funzione per passare al giocatore successivo
+    function switchPlayer() {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    }
+
+    // Funzione per ripr
