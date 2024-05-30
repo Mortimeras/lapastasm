@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kruci-Nolici</title>
             grid-template-columns: repeat(3, 100px);
-            gap: 5px;
-        }
-<body>
-
-<div id="board"></div>
-
-<script>
-    // Variabili globali
-    let currentPlayer = 'X';
+            gap:
     let board = ['', '', '', '', '', '', '', '', ''];
     const boardElement = document.getElementById('board');
 
